@@ -1,0 +1,51 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String    @id @default(uuid())
+  username String    @unique
+  password String
+  role     Role      @default(BASIC)
+  posts    Post[]
+  comments Comment[]
+}
+
+model Post {
+  id       String    @id @default(uuid())
+  text     String
+  user   User      @relation(fields: [userId], references: [id])
+  userId String
+  title    String
+  state    PostState @default(UNPUBLISHED)
+  comments Comment[]
+  postedAt DateTime  @default(now())
+}
+
+model Comment {
+  id       String   @id @default(uuid())
+  text     String
+  user     User     @relation(fields: [userId], references: [id])
+  userId   String
+  post     Post     @relation(fields: [postId], references: [id])
+  postId   String
+  postedAt DateTime @default(now())
+}
+
+enum Role {
+  BASIC
+  AUTHOR
+}
+
+enum PostState {
+  PUBLISHED
+  UNPUBLISHED
+}
