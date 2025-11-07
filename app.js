@@ -10,6 +10,10 @@ const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
+const api = require("./routes");
+
+app.use("/api", api);
+
 // error handling
 app.use((err, req, res, next) => {
     console.error(err.stack);
