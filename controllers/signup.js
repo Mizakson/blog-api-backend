@@ -2,8 +2,8 @@
 
 // const prisma = require("../prisma/prisma");
 
-async function getsignUpMessage(req, res) {
+async function getSignUpMessage(req, res) {
     res.status(200).json({ "message": "hi from signup router!" });
 }
 
-module.exports = { getsignUpMessage };
+module.exports = { getSignUpMessage };

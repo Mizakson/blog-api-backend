@@ -5,6 +5,6 @@ const controllers = require("../controllers");
 
 const signUpRouter = Router();
 
-signUpRouter.get("/", controllers.getsignUpMessage);
+signUpRouter.get("/", controllers.getSignUpMessage);
 
 module.exports = signUpRouter;
