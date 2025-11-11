@@ -6,7 +6,7 @@ require("dotenv").config();
 const express = require("express");
 const passport = require("passport");
 const path = require("node:path");
-const cors = require("cors");
+// const cors = require("cors");
 
 const { rateLimit } = require("express-rate-limit");
 

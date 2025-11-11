@@ -1,6 +1,6 @@
 const passport = require("passport");
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
+// const { PrismaClient } = require("@prisma/client");
+const prisma = require("../prisma/prisma");
 
 const jwt = require("jsonwebtoken");
 const JwtStrategy = require("passport-jwt").Strategy;
