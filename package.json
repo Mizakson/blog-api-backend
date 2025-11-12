@@ -4,7 +4,7 @@
   "description": "Odin Project NodeJS Course Project #6",
   "main": "server.js",
   "scripts": {
-    "test": "",
+    "test": "jest --detectOpenHandles --watch",
     "start": "node --watch server.js"
   },
   "keywords": [],

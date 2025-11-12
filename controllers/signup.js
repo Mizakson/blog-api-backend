@@ -39,10 +39,10 @@ async function postSignUp(req, res) {
         });
 
     } catch (err) {
-        console.error("User creation error", error);
+        console.error("User creation error", err);
         res.status(500).json({
             message: "An error occured while creating the user",
-            error: error.message,
+            error: err.message,
         });
     }
 }
