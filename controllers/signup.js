@@ -21,13 +21,14 @@ async function postSignUp(req, res) {
     }
 
     try {
-        const { username, password } = req.body;
+        const { username, password, role } = req.body;
 
         const hashedPw = await bcrypt.hash(password, 10);
         const newUser = await prisma.user.create({
             data: {
                 name: username,
                 password: hashedPw,
+                role: role
             }
         });
 
@@ -35,6 +36,7 @@ async function postSignUp(req, res) {
             message: "User created successfully",
             data: {
                 name: username,
+                role: role,
             }
         });
 
