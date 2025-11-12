@@ -6,7 +6,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const JWT_SECRET = process.env.JWT_SECRET || "loremipsum";
 
-async function getSessionStatus(req, res) {
+async function getSessionStatus(req, res, next) {
     const currentUser = req.user;
 
     if (!currentUser || !currentUser.id) {
@@ -27,14 +27,14 @@ async function getSessionStatus(req, res) {
             }
         });
 
-        if (!folders) {
+        if (!data) {
             return res.status(404).json({ message: "User not found." });
         }
 
         res.status(200).json({
             message: 'User data retrieved successfully',
             user: { id: currentUser.id, name: currentUser.name, role: currentUser.role },
-            data: data,
+            data: data.posts,
         });
     } catch (error) {
         console.error("Error in getIndex:", error);
