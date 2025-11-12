@@ -32,7 +32,7 @@ jest.mock('../prisma/prisma', () => ({
 const controllers = require("../controllers");
 
 
-describe("sign-up router test suite", () => {
+describe("sign-up controller test suite", () => {
     let mockRequest;
     let mockResponse;
     const mockNext = jest.fn();
