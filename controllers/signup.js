@@ -26,7 +26,7 @@ async function postSignUp(req, res) {
         const hashedPw = await bcrypt.hash(password, 10);
         const newUser = await prisma.user.create({
             data: {
-                name: username,
+                username: username,
                 password: hashedPw,
                 role: role
             }
@@ -52,7 +52,8 @@ async function postSignUp(req, res) {
 const validateUser = [
     body("username").isAlpha().notEmpty().withMessage("Please enter a username"),
     body("password").isLength({ min: 6 }).withMessage("Password must be a minimum of 6 characters"),
-    body("confirmPassword").custom((value, { req }) => value === req.body.password).withMessage("Passwords must match")
+    body("confirmPassword").custom((value, { req }) => value === req.body.password).withMessage("Passwords must match"),
+    body("role").custom((value, { req }) => value === "AUTHOR" || "BASIC").withMessage("Role must be either 'AUTHOR' or 'BASIC'")
 ];
 
 module.exports = { getSignUpMessage, postSignUp, validateUser };

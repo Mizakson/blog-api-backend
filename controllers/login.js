@@ -16,7 +16,7 @@ async function postLogin(req, res, next) {
     try {
         const user = await prisma.user.findUnique({
             where: {
-                name: username
+                username: username
             }
         });
 
@@ -32,7 +32,7 @@ async function postLogin(req, res, next) {
 
         const payload = {
             id: user.id,
-            name: user.name,
+            username: user.username,
         };
 
         const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '1d' }); // 1 day token expiry
@@ -40,9 +40,9 @@ async function postLogin(req, res, next) {
         return res.status(200).json({
             message: "Login successful",
             token: "Bearer " + token,
-            user: {
-                id: user.id,
-                username: user.name
+            data: {
+                id: payload.id,
+                username: payload.username
             }
         });
 
