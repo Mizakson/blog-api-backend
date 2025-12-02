@@ -13,6 +13,9 @@ postsRouter.get("/:postId", passport.authenticate('jwt', { session: false }), co
 
 postsRouter.post("/create-post", passport.authenticate('jwt', { session: false }), controllers.postCreate);
 
+postsRouter.put("/:postId/update-post", passport.authenticate('jwt', { session: false }), controllers.updatePost);
+postsRouter.delete("/:postId/delete-post", passport.authenticate('jwt', { session: false }), controllers.deletePost);
+
 postsRouter.use("/:postId/comments", commentsRouter);
 
 module.exports = postsRouter;

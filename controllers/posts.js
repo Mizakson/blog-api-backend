@@ -39,14 +39,78 @@ async function postCreate(req, res, next) {
 }
 
 async function getPostInfo(req, res, next) {
+    const { postId } = req.params;
+    const userId = req.user.id;
 
-    // const { userId, postId } = req.params;
+    try {
+        const postInfo = await prisma.post.findUnique({
+            where: {
+                id: postId,
+            }
+        });
 
-    res.status(200).json({
-        "message": "post info retrieved!",
-        "post-id": req.params.postId
-    });
+        res.status(200).json({
+            "message": "post info retrieved successfully",
+            "data": postInfo,
+        });
+
+    } catch (err) {
+        console.error("Post creation error: ", err);
+        next(err);
+    }
+}
+
+async function updatePost(req, res, next) {
+    const { title, text, state } = req.body;
+    const { postId } = req.params;
+    const userId = req.user.id;
+
+
+    try {
+        const updatedPostInfo = await prisma.post.update({
+            where: {
+                id: postId,
+            },
+            data: {
+                title: title,
+                text: text,
+                state: state
+            }
+        });
+
+        res.status(200).json({
+            "message": "post info updated successfully",
+            "data": updatedPostInfo,
+        });
+
+    } catch (err) {
+        console.error("Post creation error: ", err);
+        next(err);
+    }
+}
+
+async function deletePost(req, res, next) {
+    const { postId } = req.params;
+    const userId = req.user.id;
+
+    try {
+        const deletePost = await prisma.post.delete({
+            where: {
+                id: postId,
+            },
+        });
+
+        res.status(200).json({
+            "message": `post with id ${postId} deleted successfully`,
+            "data": deletePost,
+        });
+
+    } catch (err) {
+        console.error("Post creation error: ", err);
+        next(err);
+    }
+
 }
 
 
-module.exports = { postCreate, getPostMessage, getPostInfo };
+module.exports = { postCreate, getPostMessage, getPostInfo, updatePost, deletePost };
