@@ -6,8 +6,6 @@ async function getPostMessage(req, res) {
     res.status(200).json({ "message": "hi from posts router!" });
 }
 
-// *********************************************
-// for /create-post route
 async function postCreate(req, res, next) {
     const { title, text, state } = req.body;
     const userId = req.user.id;
@@ -32,7 +30,7 @@ async function postCreate(req, res, next) {
         });
 
     } catch (err) {
-        console.error("Post creation error: ", err);
+        console.error("post creation error: ", err);
         next(err);
     }
 
@@ -55,7 +53,7 @@ async function getPostInfo(req, res, next) {
         });
 
     } catch (err) {
-        console.error("Post creation error: ", err);
+        console.error("post info error: ", err);
         next(err);
     }
 }
@@ -64,7 +62,6 @@ async function updatePost(req, res, next) {
     const { title, text, state } = req.body;
     const { postId } = req.params;
     const userId = req.user.id;
-
 
     try {
         const updatedPostInfo = await prisma.post.update({
@@ -84,7 +81,7 @@ async function updatePost(req, res, next) {
         });
 
     } catch (err) {
-        console.error("Post creation error: ", err);
+        console.error("post update error: ", err);
         next(err);
     }
 }
@@ -100,13 +97,12 @@ async function deletePost(req, res, next) {
             },
         });
 
-        res.status(200).json({
+        res.status(204).json({
             "message": `post with id ${postId} deleted successfully`,
-            "data": deletePost,
         });
 
     } catch (err) {
-        console.error("Post creation error: ", err);
+        console.error("post deletion error: ", err);
         next(err);
     }
 
