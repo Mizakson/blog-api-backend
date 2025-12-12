@@ -1,6 +1,6 @@
 // controllers/comments.js
 
-// const prisma = require("../prisma/prisma");
+const prisma = require("../prisma/prisma");
 
 async function getCommentMessage(req, res) {
     res.status(200).json({ "message": "hi from comments router!" });
@@ -19,6 +19,7 @@ async function commentCreate(req, res, next) {
             data: {
                 text: text,
                 userId: userId,
+                postId: req.params.postId
             },
         });
 
