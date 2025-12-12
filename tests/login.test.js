@@ -1,5 +1,7 @@
 // tests/login.test.js
 
+// TODO: EDIT AND CREATE ALL TEST FILES
+
 const mockSetHeader = jest.fn();
 
 const fetch = jest.fn();

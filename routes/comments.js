@@ -3,6 +3,8 @@
 const { Router } = require("express");
 const controllers = require("../controllers");
 
+const passport = require("passport");
+
 const commentsRouter = Router({ mergeParams: true });
 
 commentsRouter.get("/", controllers.getCommentMessage);
