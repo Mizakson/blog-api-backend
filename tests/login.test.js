@@ -33,7 +33,7 @@ describe("login controller tests for user with BASIC role", () => {
     const mockNext = jest.fn();
 
     // do not need role to login
-    const MOCK_USER = { id: 'test-user-id', name: 'testuser', };
+    const MOCK_USER = { id: 'test-user-id', username: 'testuser', };
 
     beforeEach(() => {
         mockResponse = {
@@ -74,7 +74,7 @@ describe("login controller tests for user with BASIC role", () => {
         });
 
         test('should return 401 for incorrect password', async () => {
-            const mockDbUser = { id: 'user-id', name: 'testuser', password: 'hashedpassword' };
+            const mockDbUser = { id: 'user-id', username: 'testuser', password: 'hashedpassword' };
             prisma.user.findUnique.mockResolvedValue(mockDbUser);
             mockBcryptCompare.mockResolvedValue(false); // mismatch
 
@@ -87,7 +87,7 @@ describe("login controller tests for user with BASIC role", () => {
         });
 
         test('should return 200 with JWT token and user data on successful login', async () => {
-            const mockDbUser = { id: 'user-id-1', name: 'testuser', password: 'hashedpassword' };
+            const mockDbUser = { id: 'user-id-1', username: 'testuser', password: 'hashedpassword' };
             const MOCK_TOKEN = 'mock.jwt.token';
             prisma.user.findUnique.mockResolvedValue(mockDbUser);
             mockBcryptCompare.mockResolvedValue(true); // match
@@ -95,11 +95,11 @@ describe("login controller tests for user with BASIC role", () => {
 
             await controllers.postLogin(mockRequest, mockResponse, mockNext);
 
-            expect(prisma.user.findUnique).toHaveBeenCalledWith({ where: { name: 'testuser' } });
+            expect(prisma.user.findUnique).toHaveBeenCalledWith({ where: { username: 'testuser' } });
 
             // token
             expect(mockJwtSign).toHaveBeenCalledWith(
-                { id: 'user-id-1', name: 'testuser' },
+                { id: 'user-id-1', username: 'testuser' },
                 expect.any(String), // SECRET_KEY
                 { expiresIn: '1d' }
             );
@@ -109,7 +109,7 @@ describe("login controller tests for user with BASIC role", () => {
             expect(mockResponse.json).toHaveBeenCalledWith({
                 message: "Login successful",
                 token: "Bearer " + MOCK_TOKEN,
-                user: { id: 'user-id-1', username: 'testuser' }
+                data: { id: 'user-id-1', username: 'testuser' }
             });
         });
 

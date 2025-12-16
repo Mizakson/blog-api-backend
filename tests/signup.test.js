@@ -72,7 +72,7 @@ describe("sign-up controller test suite", () => {
             const hashedPw = 'hashed_password_123';
             mockBcryptHash.mockResolvedValue(hashedPw);
 
-            const newUser = { id: 'user-1', name: 'testuser', password: hashedPw, role: 'BASIC' };
+            const newUser = { id: 'user-1', username: 'testuser', password: hashedPw, role: 'BASIC' };
             mockPrismaUserCreate.mockResolvedValue(newUser);
 
             await controllers.postSignUp(mockRequest, mockResponse, mockNext);
@@ -82,7 +82,7 @@ describe("sign-up controller test suite", () => {
 
             expect(mockPrismaUserCreate).toHaveBeenCalledWith({
                 data: {
-                    name: 'testuser',
+                    username: 'testuser',
                     password: hashedPw,
                     role: 'BASIC',
                 },
@@ -197,7 +197,7 @@ describe("sign-up controller test suite", () => {
 
             expect(mockPrismaUserCreate).toHaveBeenCalledWith({
                 data: {
-                    name: 'testuser',
+                    username: 'testuser',
                     password: hashedPw,
                     role: 'AUTHOR',
                 },
