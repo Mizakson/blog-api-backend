@@ -13,5 +13,8 @@ api.use("/users", usersRouter);
 api.use("/sign-up", signUpRouter);
 api.use("/login", loginRouter);
 api.use("/logout", logoutRouter);
+api.get("/say-hello", (req, res) => {
+    res.status(200).json({ "message": "hello from blog-api backend..." });
+});
 
 module.exports = api;
