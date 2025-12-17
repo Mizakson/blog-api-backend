@@ -28,7 +28,7 @@ async function getUserInfo(req, res, next) {
 
         res.status(200).json({
             "message": "user info retrieved!",
-            "user-info": idQuery
+            "data": idQuery
         });
     } catch (err) {
         console.error("error while getting user info: ", err);
