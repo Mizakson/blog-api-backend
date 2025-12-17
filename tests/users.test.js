@@ -42,7 +42,7 @@ describe("users controller test suite", () => {
     describe("getUserInfo method tests", () => {
 
         // AUTHOR ROLE TEST BLOCK
-        test("should return a 200 status with userInfo object if id passed in correctly", async () => {
+        test("should return a 200 status with userInfo object if id passed in correctly (AUTHOR)", async () => {
             const userInfo = { id: 'user-1', username: 'testuser', role: 'AUTHOR' };
             mockPrismaFindUnique.mockResolvedValue(userInfo);
 
@@ -71,7 +71,7 @@ describe("users controller test suite", () => {
             });
         });
 
-        test("should return a 404 status with appropriate message if no id is entered", async () => {
+        test("should return a 404 status with appropriate message if no id is entered (AUTHOR)", async () => {
             mockRequest.params.userId = null;
             mockPrismaFindUnique.mockResolvedValue(null);
 
@@ -93,7 +93,7 @@ describe("users controller test suite", () => {
         });
 
         // BASIC ROLE TEST BLOCK
-        test("should return a 200 status with userInfo object if id passed in correctly", async () => {
+        test("should return a 200 status with userInfo object if id passed in correctly (BASIC)", async () => {
             const userInfo = { id: 'user-1', username: 'testuser', role: 'BASIC' };
             mockPrismaFindUnique.mockResolvedValue(userInfo);
 
@@ -122,7 +122,7 @@ describe("users controller test suite", () => {
             });
         });
 
-        test("should return a 404 status with appropriate message if no id is entered", async () => {
+        test("should return a 404 status with appropriate message if no id is entered (BASIC)", async () => {
             mockRequest.params.userId = null;
             mockPrismaFindUnique.mockResolvedValue(null);
 
